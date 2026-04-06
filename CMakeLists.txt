@@ -4,10 +4,14 @@ project(gnoP)
 set(CMAKE_CXX_STANDARD 20)
 
 find_package(SDL2 REQUIRED)
-include_directories(SDL2Test ${SDL2_INCLUDE_DIRS})
+include_directories(${SDL2_INCLUDE_DIRS})
+
+find_package(SDL2_ttf REQUIRED)
+include_directories(${SDL2_TTF_INCLUDE_DIRS})
 
 include_directories(header)
 file(GLOB_RECURSE SOURCES src/*.cpp)
 
 add_executable(gnoP ${SOURCES})
 target_link_libraries(gnoP SDL2)
+target_link_libraries(gnoP SDL2_ttf)

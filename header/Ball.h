@@ -7,9 +7,9 @@
 
 
 struct Ball {
+    const float defaultVelocity = 50;
     SDL_FRect rect {
-        0, 0, 25, 25
+        0, 0, 10, 10
     };
     float velocity[2] = {0, 0};
-
 };

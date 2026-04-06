@@ -6,7 +6,8 @@
 #include <SDL_rect.h>
 
 struct Player {
-    const float yVelcity = 10;
+    int points;
+    const float yVelocity = 80;
     SDL_FRect rect {
         0, 0, 10, 50
     };

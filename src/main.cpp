@@ -1,4 +1,5 @@
 #include <SDL2/SDL.h>
+#include <SDL_ttf.h>
 #include "Game.h"
 
 bool running = true;
@@ -10,12 +11,19 @@ int main() {
         return -1;
     }
 
+    if (TTF_Init() != 0) {
+        printf("SDL_ttf Initialisation failed: %s\n", SDL_GetError());
+        SDL_Quit();
+        return -1;
+    }
+
     if (!pongGame.create()) {
         return -1;
     }
     pongGame.run();
     pongGame.free();
 
+    TTF_Quit();
     SDL_Quit();
     return 0;
 }
