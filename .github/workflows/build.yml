@@ -28,22 +28,18 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y libsdl2-dev libsdl2-ttf-dev cmake build-essential
 
-    # --- WINDOWS DEPENDENCIES (via vcpkg) ---
-    - name: Setup vcpkg
-      if: runner.os == 'Windows'
-      uses: lukka/run-vcpkg@v11
-      with:
-        vcpkgGitCommitId: 'latest' # Oder ein spezifischer Commit für Stabilität
-
+    # --- WINDOWS DEPENDENCIES ---
     - name: Install Windows Libraries
       if: runner.os == 'Windows'
-      run: vcpkg install sdl2 sdl2-ttf --triplet x64-windows
+      run: |
+        vcpkg install sdl2 sdl2-ttf --triplet x64-windows
+      # Hinweis: vcpkg ist auf windows-latest vorinstalliert und im PATH
 
     # --- CONFIGURE & BUILD ---
     - name: Configure CMake
       run: |
-        cmake -S . -B build \
-          -DCMAKE_BUILD_TYPE=${{ matrix.config.build_type }} \
+        cmake -S . -B build `
+          -DCMAKE_BUILD_TYPE=${{ matrix.config.build_type }} `
           ${{ runner.os == 'Windows' && '-DCMAKE_TOOLCHAIN_FILE=C:/vcpkg/scripts/buildsystems/vcpkg.cmake' || '' }}
 
     - name: Build Project
@@ -56,3 +52,4 @@ jobs:
         path: |
           build/gnoP
           build/gnoP.exe
+          minecraft.ttf
